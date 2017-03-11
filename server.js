@@ -4,6 +4,7 @@ var app = express();
 var csvPath = '../sample.csv';
 var csv = require('csvtojson');
 var bodyParser = require('body-parser')
+var validator = require('validator');
 
 var mysql      = require('mysql');
 //var db = require('node-mysql');
@@ -43,6 +44,11 @@ app.get('/', function (req, res) {
   
 })
 
+app.get('/output.html', function (req, res) {
+  res.sendFile(path.join(__dirname+'/output.html'));
+  
+})
+
 app.post('/data', function(req, res){
   var swuery = 'SELECT CONTRACTS.`unique_transaction_id`, CONTRACTS.`dollarsobligated`, CONTRACTS.`currentcompletiondate`, CONTRACTS.`ultimatecompletiondate`, CONTRACTS.`vendorname`, CONTRACTS.`principalnaicscode` FROM `CONTRACTS` WHERE CONTRACTS.`firm8aflag`="TRUE"';
   //'SELECT * FROM `CONTRACTS` WHERE `firm8aflag`="TRUE"'
@@ -50,13 +56,13 @@ app.post('/data', function(req, res){
   //console.log(results)
   //res.send(results);
   //});
-  if(req.body.PVMEMO != ""){
+  if(req.body.PVMEMO != "" && validator.isAlphanumeric(req.body.PVMEMO)){
     swuery += " AND CONTRACTS.`vendorname` LIKE '%" + req.body.PVMEMO + "%'";
   }
-  if(req.body.NAICS != ""){
+  if(req.body.NAICS != "" && validator.isInt(req.body.NAICS)){
      swuery += " AND CONTRACTS.`principalnaicscode` = '" + req.body.NAICS + "'";
   }
-  if(req.body.SACODE != ""){
+  if(req.body.SACODE != "" && validator.isAlphanumeric(req.body.SACODE)){
     swuery += " AND CONTRACTS.`typeofsetaside` LIKE '%" + req.body.SACODE + "%'";
   }
   res.send(swuery);
