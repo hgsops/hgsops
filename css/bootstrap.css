@@ -1433,12 +1433,6 @@ ul ol,
 ol ol {
   margin-bottom: 0;
 }
-li {
-	list-style-image: url("fire.png");
-}
-li:hover{
-	list-style-image: url("water.png");
-}
 .list-unstyled {
   padding-left: 0;
   list-style: none;

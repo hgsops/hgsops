@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
 
     <title>HGS Dev Ops</title>
 
@@ -16,9 +17,11 @@
 
     <!-- Custom CSS -->
     <link href="css/Site.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery-ui.structure.css">
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+    <script src="js/jquery-ui.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
@@ -45,7 +48,7 @@ window.addEventListener ( "load", start, false);
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-            <img class="img-responsive large" width="25%" height="25%" src="HGS_COLOR_Med.jpg">
+            <img class="img-responsive large" width="50%" height="50%" src="css/images/HGS_Metal_small2_alt-1.png">
 
 <!--                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -95,20 +98,18 @@ window.addEventListener ( "load", start, false);
 
         <!-- Projects Row -->
         <div class="row">       
-            <div class="col-md-6 portfolio-item">
-                <form action="output.html">
+            <form action="output.html">
+                <div class="col-md-6 portfolio-item">                    
                      <fieldset>                    
-                        <div style="padding: 5px;">
-                            <label for="FY">Founding year:</label>
-                            <input type="text" id="FY" name="FY" style="float: right;" />
-                        </div>
                         <div style="padding: 5px;">
                             <label for="PVMEMO">Company Name:</label>
                             <input type="text" id="PVMEMO" name="PVMEMO" style="float: right;" />
                         </div>
                         <div style="padding: 5px;">
-                            <label for="GRAD8a">8a Graduation Date:</label>
-                            <input type="text" id="GRAD8a" name="GRAD8a" style="float: right;" />
+                            <label for="GRAD8aStart">8a Graduation Date Range From:</label>
+                            <input type="text" id="GRAD8aStart" name="GRAD8a" />
+                            <input type="text" id="GRAD8aEnd" name="GRAD8a" style="float: right;" />
+                            <label for="GRAD8aEnd" style="float: right;">To:</label>
                         </div>
                         <div style="padding: 5px;">
                             <label for="CONTITLE">Contract Title:</label>
@@ -131,10 +132,6 @@ window.addEventListener ( "load", start, false);
                             <input type="text" id="SACODE" name="SACODE" style="float: right;" />
                         </div>
                         <div style="padding: 5px;">
-                            <label for="SADESC">Set Aside Description:</label>
-                            <input type="text" id="SADESC" name="SADESC" style="float: right;" />
-                        </div>
-                        <div style="padding: 5px;">
                             <label for="NAICS">NAICS Code:</label>
                             <input type="text" id="NAICS" name="NAICS" style="float: right;" />
                         </div>
@@ -150,10 +147,30 @@ window.addEventListener ( "load", start, false);
                             <label for="businessState">Enter the state of the business: </label>
                             <input name="businessState" id="businessState" name="businessState" style="float: right;" />
                         </div> 
-                        <input type="submit" value="Search">
+                        <button id="button" type="submit" class="ui-button ui-corner-all ui-widget">Search</button>
+                    </fieldset>                    
+                </div>            
+                <div class="col-md-6 portfolio-item">
+                    <fieldset>
+                        <legend> 8a buisiness types </legend>
+                            <div id="controlgroup"> 
+                            
+                                <input type="checkbox" id="women" name="women" class="form-control">
+                                <label for="women">Women Owned</label>
+
+                                <input type="checkbox" id="veteran" name="veteran" class="form-control">
+                                <label for="veteran">Veteran Owned</label>
+
+                                <input type="checkbox" id="minority" name="minority" class="form-control">
+                                <label for="minority">Minority Owned</label>
+
+                                <label for="tribe"><input type="checkbox" id="tribe" name="tribe" class="form-control">
+                                Tribal Government</label>
+
+                            </div>                      
                     </fieldset>
-                </form>
-            </div>            
+                </div>
+            </form>
         </div>
 
         <!-- /.row -->
@@ -180,5 +197,9 @@ window.addEventListener ( "load", start, false);
   }
 });  
 </script>
+<script>
+$( "#controlgroup" ).controlgroup();
+</script>
+
 </body>
 </html>
