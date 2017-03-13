@@ -7,11 +7,9 @@ var bodyParser = require('body-parser')
 var validator = require('validator');
 
 var mysql      = require('mysql');
-//var db = require('node-mysql');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-// in latest body-parser use like below.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
@@ -19,7 +17,7 @@ app.use('/js', express.static('js'));
 var connection = mysql.createConnection({
   host     : 'ec2-34-195-179-212.compute-1.amazonaws.com',
   user     : 'nijjarm',
-  debug    : ['ComQueryPacket', 'RowDataPacket'],
+  //debug    : ['ComQueryPacket', 'RowDataPacket'],
   password : 'ES-yUW2k-xn3^hFU',
   database : 'hgsops'
 });
@@ -30,14 +28,8 @@ connection.connect(function(err) {
     return;
   }
   console.log('connected as id ' + connection.threadId);
-  /*
-  connection.query('SELECT COUNT(*) FROM `TEST`', function (error, results, fields) {
-  console.log(results)
-});
-*/
 });
 
-//connection.end();
 
 
 app.get('/', function (req, res) {
@@ -51,14 +43,17 @@ app.get('/output.html', function (req, res) {
 })
 
 app.post('/data', function(req, res){
-  var swuery = 'SELECT CONTRACTS.`unique_transaction_id`, CONTRACTS.`dollarsobligated`, CONTRACTS.`currentcompletiondate`, CONTRACTS.`ultimatecompletiondate`, CONTRACTS.`vendorname`, CONTRACTS.`principalnaicscode`, CONTRACTS.`phoneno` FROM `CONTRACTS`, `CONTRACTEND` WHERE CONTRACTS.`unique_transaction_id` = CONTRACTEND.`unique_transaction_id` AND CONTRACTS.`firm8aflag`="TRUE"';
-  //'SELECT * FROM `CONTRACTS` WHERE `firm8aflag`="TRUE"'
- // connection.query(swuery, function (error, results, fields) {
-  //console.log(results)
-  //res.send(results);
-  //});
+  console.log(req.body.GRAD8aStart);
+  
+  var swuery = 'SELECT CONTRACTS.`unique_transaction_id`, CONTRACTS.`dollarsobligated`, CONTRACTS.`currentcompletiondate`, CONTRACTS.`ultimatecompletiondate`, CONTRACTS.`vendorname`, CONTRACTS.`principalnaicscode`, CONTRACTS.`phoneno`, GRADDATE.`graddate` FROM `CONTRACTS`, `CONTRACTEND`, `GRADDATE` WHERE CONTRACTS.`unique_transaction_id` = CONTRACTEND.`unique_transaction_id` AND CONTRACTS.`VENDORNAME` = GRADDATE.`VENDORNAME` AND CONTRACTS.`firm8aflag`="TRUE"';
   if(req.body.PVMEMO != "" && validator.isAlphanumeric(req.body.PVMEMO)){
     swuery += " AND CONTRACTS.`vendorname` LIKE '%" + req.body.PVMEMO + "%'";
+  }
+  if(req.body.GRAD8aStart != "" && validator.isISO8601(req.body.GRAD8aStart + '')){
+    swuery += " AND GRADDATE.`graddate` >= '" + req.body.GRAD8aStart + "'";
+  }
+  if(req.body.GRAD8aEnd != "" && validator.isISO8601(req.body.GRAD8aEnd+'')){
+    swuery += " AND GRADDATE.`graddate` <= '" + req.body.GRAD8aEnd + "'";
   }
   if(req.body.NAICS != "" && validator.isInt(req.body.NAICS)){
      swuery += " AND CONTRACTS.`principalnaicscode` = '" + req.body.NAICS + "'";
@@ -66,7 +61,7 @@ app.post('/data', function(req, res){
   if(req.body.SACODE != "" && validator.isAlphanumeric(req.body.SACODE)){
     swuery += " AND CONTRACTS.`typeofsetaside` LIKE '%" + req.body.SACODE + "%'";
   }
-  if(req.body.CEND != "" && validator.isDate(req.body.CEND)){
+  if(req.body.CEND != "" && validator.isISO8601(req.body.CEND)){
     swuery += " AND CONTRACTEND.`enddate` < '" + req.body.SACODE + "'";
   }
   if(req.body.POPCITY != "" && validator.isAlpha(req.body.POPCITY)){
@@ -75,15 +70,24 @@ app.post('/data', function(req, res){
   if(req.body.STATE != "" && validator.isAlpha(req.body.POPCITY)){
     swuery += " AND CONTRACTS.`CITY` LIKE '%" + req.body.CITY + "%'";
   }
-/*
-  connection.query(swuery, function (error, results, fields) {
-    res.send(results);
-  });
-*/
+  if(req.body.women != null){
+    swuery += " AND CONTRACTS.`womenownedflag` = 'TRUE'";
+  }
+  if(req.body.veteran != null){
+    swuery += " AND CONTRACTS.`veteranownedflag` = 'TRUE'";
+  }
+  if(req.body.minority != null){
+    swuery += " AND CONTRACTS.`minorityownedflag` = 'TRUE'";
+  }
+  if(req.body.tribe != null){
+    swuery += " AND CONTRACTS.`tribalgovernmentflag` = 'TRUE'";
+  }
+  
 
 var datja = {};
 var numbo = 0;
 var juxta = true;
+
   var query = connection.query(swuery);
 query
   .on('error', function(err) {
@@ -98,22 +102,17 @@ query
       console.log(numbo);
       datja[numbo] = row;
       numbo++;
-      /*if(numbo > 3000 && juxta){
-        juxta = false;
-        res.send(datja);
-  } */
       connection.resume();
   })
   .on('end', function() {
     // all rows have been received
     if(juxta){
       res.send(datja);
-
+      console.log(swuery);
     }
     
   });
-
-  //res.send(swuery);
+  console.log(swuery);
 })
 
 app.listen(3000, function () {
