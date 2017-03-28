@@ -50,7 +50,7 @@ window.addEventListener ( "load", start, false);
             <div class="navbar-header">
             <img class="img-responsive large" width="50%" height="50%" src="css/images/HGS_Metal_small2_alt-1.png">
 
-<!--                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<!--             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -99,76 +99,101 @@ window.addEventListener ( "load", start, false);
         <!-- Projects Row -->
         <div class="row">       
             <form action="output.html">
-                <div class="col-md-6 portfolio-item">                    
+                <div class="col-md-12 portfolio-item">                    
                      <fieldset>                    
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-12" style="padding: 5px;">
                             <label for="PVMEMO">Company Name:</label>
-                            <input type="text" id="PVMEMO" name="PVMEMO" style="float: right;" />
+                            <input type="text" class="form-control" id="PVMEMO" name="PVMEMO" style="float: right;" />
                         </div>
-                        <div style="padding: 5px; margin-bottom: 30px;">
-                            <p style="font-weight: bold;">8a Graduation Date Range:</p>
-                                <label for="GRAD8aStart" style="float: left;">From:</label>
-                                <input type="text" id="GRAD8aStart" name="GRAD8a" style="float: left;"/>
-                                <input type="text" id="GRAD8aEnd" name="GRAD8a" style="float: right;" />
-                                <label for="GRAD8aEnd" style="float: right;">To:</label>
+                        <div class="form-group col-md-12" style="padding: 5px; margin-bottom: 0px;">
+                            <p style="font-weight: bold;">8a Graduation Date Range:</p>                     
                         </div>
-                        <div style="padding: 5px;">
-                            <label for="CONTITLE">Contract Title:</label>
-                            <input type="text" id="CONTITLE" name="CONTITLE" style="float: right;" />
+                        <div class="form-group col-md-6" style="padding: 5px;">
+                            <label for="GRAD8aStart" style="float: left;">From:</label>
+                            <input type="text" class="form-control col-md-6" id="GRAD8aStart" name="GRAD8aStart" style="float: left;"/>                      
                         </div>
-                        <div style="padding: 5px;">
-                            <label for="CONTNUM">Contract Number:</label>
-                            <input type="text" id="CONTNUM" name="CONTNUM" style="float: right;" />
+                        <div class="form-group col-md-6" style="padding: 5px;">
+                            <label for="GRAD8aEnd" style="float: left;">To:</label>
+                            <input type="text" class="form-control col-md-6" id="GRAD8aEnd" name="GRAD8aEnd" style="float: right;" />                            
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-6" style="padding: 5px;">
                             <label for="CSTART">Contract Start:</label>
-                            <input type="text" id="CSTART" name="CSTART" style="float: right;" />
+                            <input type="text" class="form-control" id="CSTART" name="CSTART" style="float: right;" />
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-6" style="padding: 5px;">
                             <label for="CEND">Contract End:</label>
-                            <input type="text" id="CEND" name="CEND" style="float: right;" />
+                            <input type="text" class="form-control" id="CEND" name="CEND" style="float: right;" />
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-12" style="padding: 5px;">
                             <label for="SACODE">Set Aside Code:</label>
-                            <input type="text" id="SACODE" name="SACODE" style="float: right;" />
+                            <select class="form-control" id="SACODE" name="SACODE" style="float: right;" >
+                                <option value="none">NO SET ASIDE USED</option>
+                                <option value="8AN">8(A) SOLE SOURCE</option>
+                                <option value="SBA">SMALL BUSINESS ET ASIDE - TOTAL</option>
+                                <option value="SDVOSBC">SERVICE DISABLED VETERAN OWNED SMALL BUSINESS</option>
+                                <option value="SBP">SMALL BUSINESS SET ASIDE - PARTIAL</option>
+                                <option value="HZC">HUBZONE SET-ASIDE</option>
+                                <option value="VSA">VETERAN SET ASIDE</option>
+                                <option value="SDVOSBS">SDVOSB SOLE SOURCE</option>
+                                <option value="EDWOSBSS">ECONOMICALLY DISADVANTAGED WOMEN OWNED SMALL BUSINESS SOLE SOURCE</option>
+                                <option value="EDWOSB">ECONOMICALLY DISADVANTAGED WOMEN OWNED SMALL BUSINESS</option>
+                                <option value="ISBEE">INDIAN SMALL BUSINESS ECONOMIC ENTERPRISE</option>
+                                <option value="WOSB">WOMEN OWNED SMALL BUSINESS</option>
+                                <option value="BI">BUY INDIAN</option>
+                                <option value="WOSBSS">WOMEN OWNED SMALL BUSINESS SOLE SOURCE</option>
+                                <option value="HZS">HUBZONE SOLE SOURCE</option>
+                                <option value="RSB">RESERVED FOR SMALL BUSINESS</option>
+                                <option value="IEE">INDIAN ECONOMIC ENTERPRISE</option>
+                                <option value="VSS">VETERAN SOLE SOURCE</option>
+                            </select>
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-12" style="padding: 5px;">
                             <label for="NAICS">NAICS Code:</label>
-                            <input type="text" id="NAICS" name="NAICS" style="float: right;" />
+                            <input type="text" class="form-control" id="NAICS" name="NAICS" style="float: right;" />
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-12" style="padding: 5px;">
                             <label for="NAICSDESC">NAICS Description:</label>
-                            <input type="text" id="NAICSDESC" name="NAICSDESC" style="float: right;" />
+                            <input type="text" class="form-control" id="NAICSDESC" name="NAICSDESC" style="float: right;" />
                         </div>
-                        <div style="padding: 5px;">
+                        <div class="form-group col-md-6" style="padding: 5px;">
                             <label for="POPCITY">City:</label>
-                            <input type="text" id="POPCITY" name="POPCITY" style="float: right;" />
+                            <input type="text" class="form-control" id="POPCITY" name="POPCITY" style="float: right;" />
                         </div>
-                        <div style="padding: 5px;">
-                            <label for="businessState">Enter the state of the business: </label>
-                            <input name="businessState" id="businessState" name="businessState" style="float: right;" />
-                        </div> 
-                        <button id="button" type="submit" class="ui-button ui-corner-all ui-widget">Search</button>
+                    <!--<div class="form-group col-md-12" style="padding: 5px;">
+                            <label for="businessState">State: </label>
+                            <input name="businessState" class="form-control" id="businessState" name="businessState" style="float: right;" />
+                        </div>  -->
+                        <div class="form-group col-md-6" style="padding: 5px;">
+                        <label for="businessState">State: </label>
+                            <select class="form-control" id="businessState" name="businessState" style="float: right;"  multiple>
+                                <option value="VA">VA - VIRGINIA</option>
+                                <option value="MA">MA - MARYLAND</option>
+                                <option value="DC">DC - DISTRICT OF COLUMBIA</option>
+                            </select>                            
+                        </div>
+
+                        <div class="form-group col-md-12 portfolio-item" style="float: left;">
+                            <fieldset>
+                                <legend> 8a buisiness types </legend>
+                                    <div id="controlgroup">                             
+                                        <input type="checkbox" id="women" name="women" class="form-control">
+                                        <label for="women">Women Owned</label>
+
+                                        <input type="checkbox" id="veteran" name="veteran" class="form-control">
+                                        <label for="veteran">Veteran Owned</label>
+
+                                        <input type="checkbox" id="minority" name="minority" class="form-control">
+                                        <label for="minority">Minority Owned</label>
+
+                                        <input type="checkbox" id="tribe" name="tribe" class="form-control">
+                                        <label for="tribe">Tribal Government</label>
+                                    </div>                      
+                            </fieldset>
+                        </div>                        
+                        <button id="button" type="submit" class="ui-button ui-corner-all ui-widget  col-md-6">Search</button>
                     </fieldset>                    
                 </div>            
-                <div class="col-md-3 portfolio-item">
-                    <fieldset>
-                        <legend> 8a buisiness types </legend>
-                            <div id="controlgroup">                             
-                                <input type="checkbox" id="women" name="women" class="form-control">
-                                <label for="women">Women Owned</label>
 
-                                <input type="checkbox" id="veteran" name="veteran" class="form-control">
-                                <label for="veteran">Veteran Owned</label>
-
-                                <input type="checkbox" id="minority" name="minority" class="form-control">
-                                <label for="minority">Minority Owned</label>
-
-                                <input type="checkbox" id="tribe" name="tribe" class="form-control">
-                                <label for="tribe">Tribal Government</label>
-                            </div>                      
-                    </fieldset>
-                </div>
             </form>
         </div>
 
@@ -179,7 +204,6 @@ window.addEventListener ( "load", start, false);
             <div class="row">
                 <div class="col-lg-12">
                 <hr>
-                    <p>Not sure if we need a footer but I'll leave one here anyway.</p>
                     <p>Last Modified: </p><div id="lastMod"></div>
                 </div>
             </div>
@@ -189,7 +213,7 @@ window.addEventListener ( "load", start, false);
     </div>
     <!-- /.container -->
 <script>
-    $.validate({
+$.validate({
   modules : 'location',
   onModulesLoaded : function() {
     $('input[name="businessState"]').suggestState();
@@ -200,5 +224,22 @@ window.addEventListener ( "load", start, false);
 $( "#controlgroup" ).controlgroup();
 </script>
 
+<script>
+$( "#CSTART" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+$( "#CEND" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+$( "#GRAD8aStart" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+$( "#GRAD8aEnd" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+</script>
 </body>
 </html>
