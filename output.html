@@ -19,11 +19,20 @@
     <link href="css/Site.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
+    <link rel="stylesheet" type="text/css" href="js/DataTables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="js/DataTables/Buttons-1.2.4/css/buttons.dataTables.css"/>
+ 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- Datatables -->
+    <script type="text/javascript" src="js/DataTables/datatables.js"></script>
+    <script type="text/javascript" src="js/DataTables/Buttons-1.2.4/js/dataTables.buttons.min.js"></script>
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,24 +46,29 @@ function start() {
 window.addEventListener ( "load", start, false);
 </script>
 <script>
-    $( function() {
-    $( "#accordion" )
-      .accordion({
-        header: "> div > h3"
-      })
-      .sortable({
-        axis: "y",
-        handle: "h3",
-        stop: function( event, ui ) {
-          // IE doesn't register the blur when sorting
-          // so trigger focusout handlers to remove .ui-state-focus
-          ui.item.children( "h3" ).triggerHandler( "focusout" );
- 
-          // Refresh accordion to handle new order
-          $( this ).accordion( "refresh" );
-        }
-      });
-  } );
+$(document).ready(function() {
+  //Only needed for the filename of export files.
+  //Normally set in the title tag of your page.
+  // DataTable initialisation
+  $('#table').DataTable(
+    {
+      "dom": 'Bfrtip',
+      "paging": true,
+      "autoWidth": true,
+      "buttons": [
+          {
+            extend: 'excel',
+            text: 'Save to excel',
+            exportOptions: {
+                modifier: {
+                    page: 'current'
+                }
+            }
+          }
+      ]
+    }
+  );
+});
 </script>
 </head>
 <body>
@@ -108,7 +122,6 @@ window.addEventListener ( "load", start, false);
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Search Results</h1>
-                <p>Search yielded 6 results</p>
             </div>
         </div>
         <!-- /.row -->
@@ -116,200 +129,97 @@ window.addEventListener ( "load", start, false);
         <!-- Projects Row -->
         <div class="row">       
             <div class="col-md-12 portfolio-item">
-              <div id="accordion">
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 01695153-2b04-48fc-b3fb-449d9f1f04e3</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 0</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: N/A</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: N/A</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 611430</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 04e51aa1-3b4a-407d-b995-05faf81a36fa</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 100,002</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: 9/27/16</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: 9/27/16</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 541519</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 01695153-2b04-48fc-b3fb-449d9f1f04e3</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 0</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: N/A</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: N/A</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 611430</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 098ab21a-6b21-4990-9936-7a3dd2d35ab6</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 0</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: N/A</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: N/A</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 541511</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 111e5f40-0d24-4567-a129-0d80d89fd76e</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 0</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: N/A</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: N/A</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 541511</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="group">
-                  <h3>HICKORY GROUND SOLUTIONS, LLC</h3>
-                  <div>
-                    <div class="col-md-12 portfolio-item">
-                      <p>Unique transaction ID: 134da583-6f96-40fa-b053-43f238c5abfd</p>
-                    </div>          
-                    <div class="col-md-4 portfolio-item">
-                      <p>Dollars Obligated: 0</p>
-                    </div>           
-                    <div class="col-md-4 portfolio-item">
-                      <p>Current Completion Date: N/A</p>
-                    </div>                  
-                    <div class="col-md-4 portfolio-item">
-                      <p>Ultimate Completion Date: N/A</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>Principle NAICS Code: 541611</p>
-                    </div>      
-                    <div class="col-md-4 portfolio-item">
-                      <p>Phone Number: 7037252997</p>
-                    </div>  
-                    <div class="col-md-4 portfolio-item">
-                      <p>8a Graduation Date: 2019-05-22</p>
-                    </div>                                                    
-                    <div class="col-md-4 portfolio-item">
-                      <p>State: VA</p>
-                    </div>
-                    <div class="col-md-4 portfolio-item">
-                      <p>City: Reston</p>
-                    </div>
-                  </div>
-                </div>                                
-              </div>
+              <table id="table" class="table table-responsive table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Unique transaction ID</th>
+                    <th>Dollars Obligated</th>
+                    <th>Current Completion Date</th>
+                    <th>Ultimate Completion Date</th>
+                    <th>Principle NAICS Code</th>
+                    <th>Phone Number</th>
+                    <th>8a Graduation Date</th>
+                    <th>State</th>
+                    <th>City</th>                
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>01695153-2b04-48fc-b3fb-449d9f1f04e3</td>
+                    <td>0</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>611430</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                    <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>04e51aa1-3b4a-407d-b995-05faf81a36fa</td>
+                    <td>100,002</td>
+                    <td>9/27/16</td>
+                    <td>9/27/16</td>
+                    <td>541519</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                  </tr>
+                    <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>01695153-2b04-48fc-b3fb-449d9f1f04e3</td>
+                    <td>0</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>611430</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                  <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>098ab21a-6b21-4990-9936-7a3dd2d35ab6</td>
+                    <td>0</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>541511</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                  <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>111e5f40-0d24-4567-a129-0d80d89fd76e</td>
+                    <td>0</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>541511</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                  <tr>
+                    <td>HICKORY GROUND SOLUTIONS, LLC</td>
+                    <td>134da583-6f96-40fa-b053-43f238c5abfd</td>
+                    <td>0</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>541611</td>
+                    <td>7037252997</td>
+                    <td>2019-05-22</td>
+                    <td>VA</td>
+                    <td>Reston</td>
+                  </tr>
+                </tbody>
+              </table>                              
             </div>            
         </div>
 
