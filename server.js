@@ -55,8 +55,18 @@ app.post('/data', function(req, res){
   if(req.body.GRAD8aEnd != "" && validator.isISO8601(req.body.GRAD8aEnd+'')){
     swuery += " AND GRADDATE.`graddate` <= '" + req.body.GRAD8aEnd + "'";
   }
-  if(req.body.NAICS != "" && validator.isInt(req.body.NAICS)){
+  if(req.body.NAICS != ""){
+    if(req.body.NAICS.includes(',')){
+      var tempValue = req.body.NAICS.replace(/ /g, "");
+      var splitValue = tempValue.split(",");
+      swuery += " AND (CONTRACTS.`principalnaicscode` = '" + splitValue[0] + "'";
+      for(x = 1; x<splitValue.length; x++){
+        swuery += " OR CONTRACTS.`principalnaicscode` = '" + splitValue[x] + "'";
+      }
+      swuery += ')';
+    } else {
      swuery += " AND CONTRACTS.`principalnaicscode` = '" + req.body.NAICS + "'";
+    }
   }
   if(req.body.SACODE != "" && validator.isAlphanumeric(req.body.SACODE)){
     swuery += " AND CONTRACTS.`typeofsetaside` LIKE '%" + req.body.SACODE + "%'";
