@@ -52,6 +52,13 @@ $(document).ready(function() {
   // DataTable initialisation
   $('#table').DataTable(
     {
+      "columnDefs":[
+        {
+          "targets": [8,9],
+          "visible": false,
+          "searchable": false
+        }
+      ],
       "dom": 'Bfrtip',
       "paging": true,
       "autoWidth": true,
