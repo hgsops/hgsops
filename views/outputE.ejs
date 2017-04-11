@@ -45,43 +45,6 @@ function start() {
 };
 window.addEventListener ( "load", start, false);
 </script>
-<script>
-$(document).ready(function() {
-  //Only needed for the filename of export files.
-  //Normally set in the title tag of your page.
-  // DataTable initialisation
-  $('#table').DataTable(
-    {
-      
-      "columnDefs":[
-        {
-          "targets": [8,9],
-          "visible": false,
-          "searchable": false
-        }
-      ],
-      "columnDefs":[
-        {
-          "targets": [2],
-          data: 'price',
-          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
-        }
-      ],
-      "dom": 'Bfrtip',
-      "paging": true,
-      "autoWidth": true,
-      "buttons": [
-          {
-            extend: 'excel',
-            text: 'Save to excel',
-            exportOptions: {
-            }
-          }
-      ]
-    }
-  );
-});
-</script>
 </head>
 <body>
 
@@ -193,3 +156,40 @@ $(document).ready(function() {
     <!-- /.container -->
 </body>
 </html>
+<script>
+$(document).ready(function() {
+  //Only needed for the filename of export files.
+  //Normally set in the title tag of your page.
+  // DataTable initialisation
+  $('#table').DataTable(
+    {
+      
+      "columnDefs":[
+        {
+          "targets": [8,9],
+          "visible": false,
+          "searchable": false
+        }
+      ],
+      "columnDefs":[
+        {
+          "targets": [2],
+          data: 'price',
+          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
+        }
+      ],
+      "dom": 'Bfrtip',
+      "paging": true,
+      "autoWidth": true,
+      "buttons": [
+          {
+            extend: 'excel',
+            text: 'Save to excel',
+            exportOptions: {
+            }
+          }
+      ]
+    }
+  );
+});
+</script>
