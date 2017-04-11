@@ -125,6 +125,90 @@ query
   console.log(swuery);
 })
 
+app.get('/data', function(req, res){
+  console.log(req.query);
+  //console.log(req.body.PVMEMO);
+  
+  var swuery = 'SELECT CONTRACTS.`unique_transaction_id`, CONTRACTS.`dollarsobligated`, CONTRACTS.`currentcompletiondate`, CONTRACTS.`ultimatecompletiondate`, CONTRACTS.`vendorname`, CONTRACTS.`principalnaicscode`, CONTRACTS.`phoneno`, GRADDATE.`graddate` FROM `CONTRACTS`, `CONTRACTEND`, `GRADDATE` WHERE CONTRACTS.`unique_transaction_id` = CONTRACTEND.`unique_transaction_id` AND CONTRACTS.`VENDORNAME` = GRADDATE.`VENDORNAME` AND CONTRACTS.`firm8aflag`="TRUE"';
+  if(req.query.PVMEMO != "" && validator.isAlphanumeric(req.query.PVMEMO)){
+    swuery += " AND CONTRACTS.`vendorname` LIKE '%" + req.query.PVMEMO + "%'";
+  }
+  if(req.query.GRAD8aStart != "" && validator.isISO8601(req.query.GRAD8aStart + '')){
+    swuery += " AND GRADDATE.`graddate` >= '" + req.query.GRAD8aStart + "'";
+  }
+  if(req.query.GRAD8aEnd != "" && validator.isISO8601(req.query.GRAD8aEnd+'')){
+    swuery += " AND GRADDATE.`graddate` <= '" + req.query.GRAD8aEnd + "'";
+  }
+  if(req.query.NAICS != ""){
+    if(req.query.NAICS.includes(',')){
+      var tempValue = req.query.NAICS.replace(/ /g, "");
+      var splitValue = tempValue.split(",");
+      swuery += " AND (CONTRACTS.`principalnaicscode` = '" + splitValue[0] + "'";
+      for(x = 1; x<splitValue.length; x++){
+        swuery += " OR CONTRACTS.`principalnaicscode` = '" + splitValue[x] + "'";
+      }
+      swuery += ')';
+    } else {
+     swuery += " AND CONTRACTS.`principalnaicscode` = '" + req.query.NAICS + "'";
+    }
+  }
+  if(req.query.SACODE != "" && validator.isAlphanumeric(req.query.SACODE)){
+    swuery += " AND CONTRACTS.`typeofsetaside` LIKE '%" + req.query.SACODE + "%'";
+  }
+  if(req.query.CEND != "" && validator.isISO8601(req.query.CEND)){
+    swuery += " AND CONTRACTEND.`enddate` < '" + req.query.SACODE + "'";
+  }
+  if(req.query.POPCITY != "" && validator.isAlpha(req.query.POPCITY)){
+    swuery += " AND CONTRACTS.`CITY` LIKE '%" + req.query.CITY + "%'";
+  }
+  if(req.query.STATE != "" && validator.isAlpha(req.query.POPCITY)){
+    swuery += " AND CONTRACTS.`CITY` LIKE '%" + req.query.CITY + "%'";
+  }
+  if(req.query.women != null){
+    swuery += " AND CONTRACTS.`womenownedflag` = 'TRUE'";
+  }
+  if(req.query.veteran != null){
+    swuery += " AND CONTRACTS.`veteranownedflag` = 'TRUE'";
+  }
+  if(req.query.minority != null){
+    swuery += " AND CONTRACTS.`minorityownedflag` = 'TRUE'";
+  }
+  if(req.query.tribe != null){
+    swuery += " AND CONTRACTS.`tribalgovernmentflag` = 'TRUE'";
+  }
+  
+
+var datja = {};
+var numbo = 0;
+var juxta = true;
+
+  var query = connection.query(swuery);
+query
+  .on('error', function(err) {
+    // Handle error, an 'end' event will be emitted after this as well
+  })
+  .on('fields', function(fields) {
+    // the field packets for the rows to follow
+  })
+  .on('result', function(row) {
+    // Pausing the connnection is useful if your processing involves I/O
+      connection.pause();
+      console.log(numbo);
+      datja[numbo] = row;
+      numbo++;
+      connection.resume();
+  })
+  .on('end', function() {
+    // all rows have been received
+    if(juxta){
+      res.send(datja);
+      console.log(swuery);
+    }
+    
+  });
+  console.log(swuery);
+})
+
 app.listen(3000, function () {
   console.log('localhost:3000')
 })
