@@ -52,6 +52,13 @@ $(document).ready(function() {
   // DataTable initialisation
   $('#table').DataTable(
     {
+        "columnDefs":[
+        {
+          "targets": [8,9],
+          "visible": false,
+          "searchable": false
+        }
+      ],
       "dom": 'Bfrtip',
       "paging": true,
       "autoWidth": true,
@@ -149,7 +156,7 @@ $(document).ready(function() {
                 <tr>
                     <td><%= data[4+(i*8)] %></td>
                     <td><%= data[0+(i*8)] %></td>
-                    <td><%='$'+ data[1+(i*8)] %></td>
+                    <td>$<%= data[1+(i*8)] %></td>
                     <td><%= data[2+(i*8)] %></td>
                     <td><%= data[3+(i*8)] %></td>
                     <td><%= data[5+(i*8)] %></td>
