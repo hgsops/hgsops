@@ -52,11 +52,19 @@ $(document).ready(function() {
   // DataTable initialisation
   $('#table').DataTable(
     {
-        "columnDefs":[
+      
+      "columnDefs":[
         {
           "targets": [8,9],
           "visible": false,
           "searchable": false
+        }
+      ],
+      "columnDefs":[
+        {
+          "targets": [2],
+          data: 'price',
+          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
         }
       ],
       "dom": 'Bfrtip',
@@ -67,9 +75,6 @@ $(document).ready(function() {
             extend: 'excel',
             text: 'Save to excel',
             exportOptions: {
-                modifier: {
-                    page: 'current'
-                }
             }
           }
       ]
@@ -156,7 +161,7 @@ $(document).ready(function() {
                 <tr>
                     <td><%= data[4+(i*8)] %></td>
                     <td><%= data[0+(i*8)] %></td>
-                    <td>$<%= data[1+(i*8)] %></td>
+                    <td><%= data[1+(i*8)] %></td>
                     <td><%= data[2+(i*8)] %></td>
                     <td><%= data[3+(i*8)] %></td>
                     <td><%= data[5+(i*8)] %></td>
