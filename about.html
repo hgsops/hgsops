@@ -14,24 +14,19 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link href="css/Site.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
-    <link rel="stylesheet" type="text/css" href="js/DataTables/datatables.css"/>
-    <link rel="stylesheet" type="text/css" href="js/DataTables/Buttons-1.2.4/css/buttons.dataTables.css"/>
- 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Datatables -->
-    <script type="text/javascript" src="js/DataTables/datatables.js"></script>
-    <script type="text/javascript" src="js/DataTables/Buttons-1.2.4/js/dataTables.buttons.min.js"></script>
 
-
+    <!-- Form validator -->
+    <script src="js/jquery.form-validator.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,42 +39,6 @@ function start() {
     document.getElementById("lastMod").innerHTML = String(document.lastModified);
 };
 window.addEventListener ( "load", start, false);
-</script>
-<script>
-$(document).ready(function() {
-  //Only needed for the filename of export files.
-  //Normally set in the title tag of your page.
-  // DataTable initialisation
-  $('#table').DataTable(
-    {
-      "dom": 'Bfrtip',
-      "paging": true,
-      "autoWidth": true,
-      "buttons": [
-          {
-            extend: 'excel',
-            text: 'Save to excel',
-            exportOptions: {
-            }
-          }
-      ],            
-      "columnDefs":[
-        {
-          "targets": [8,9],
-          "visible": false,
-          "searchable": false
-        }
-      ],
-      "columnDefs":[
-        {
-          "targets": [2],
-          data: 'price',
-          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
-        }
-      ]
-    }
-  );
-});
 </script>
 </head>
 <body>
@@ -112,48 +71,19 @@ $(document).ready(function() {
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container"  style="background-color: white;">
 
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Search Results</h1>
+                <h1 class="page-header">About HGS Ops</h1>
             </div>
         </div>
         <!-- /.row -->
-         
+
         <!-- Projects Row -->
         <div class="row">       
-            <div class="col-md-12 portfolio-item">
-              <table id="table" class="table table-responsive table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Company Name</th>
-                    <th>Unique transaction ID</th>
-                    <th>Dollars Obligated</th>
-                    <th>Current Completion Date</th>
-                    <th>Ultimate Completion Date</th>
-                    <th>Principle NAICS Code</th>
-                    <th>Phone Number</th>
-                    <th>8a Graduation Date</th>           
-                  </tr>
-                </thead>
-                <tbody>
-                <% for(var i = 0; i < (data.length/8); i++) {%>
-                <tr>
-                    <td><%= data[4+(i*8)] %></td>
-                    <td><%= data[0+(i*8)] %></td>
-                    <td><%= '$'+data[1+(i*8)].slice(1, data[1+(i*8)].length-1) %></td>
-                    <td><%= data[2+(i*8)] %></td>
-                    <td><%= data[3+(i*8)] %></td>
-                    <td><%= data[5+(i*8)].slice(1, data[5+(i*8)].length-1) %></td>
-                    <td><%= data[6+(i*8)] %></td>
-                    <td><%= data[7+(i*8)].substring(0,10) %></td>
-                </tr>
-                <% } %>
-                </tbody>
-              </table>                              
-            </div>            
+            <p>"HGS Ops is an interactive web application designed to fetch public information about 8(a) companies in the DMV area. <br/> "HGS Ops is the collaborative result between the Information Sciences and Technology capstone course at George Mason University and Hickory Ground Solutions."</p>
         </div>
 
         <!-- /.row -->
@@ -162,7 +92,7 @@ $(document).ready(function() {
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                <hr/>
+                <hr>
                     <p>Last Modified: </p><div id="lastMod"></div>
                 </div>
             </div>
@@ -171,5 +101,34 @@ $(document).ready(function() {
 
     </div>
     <!-- /.container -->
+<script>
+$.validate({
+  modules : 'location',
+  onModulesLoaded : function() {
+    $('input[name="businessState"]').suggestState();
+  }
+});  
+</script>
+<script>
+$( "#controlgroup" ).controlgroup();
+</script>
+
+<script>
+$( "#CSTART" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+$( "#CEND" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+$( "#GRAD8aStart" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+$( "#GRAD8aEnd" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+
+</script>
 </body>
 </html>

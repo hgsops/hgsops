@@ -46,6 +46,11 @@ app.get('/output.html', function (req, res) {
   
 })
 
+app.get('/about.html', function (req, res) {
+  res.sendFile(path.join(__dirname+'/about.html'));
+  
+})
+
 app.post('/data', function(req, res){
   console.log(req.body.GRAD8aStart);
   console.log('!!!!!!!!!!!!!!AHHAHHAHAHAH')
