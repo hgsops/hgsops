@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
 
+app.set('view engine', 'ejs');
+
 var connection = mysql.createConnection({
   host     : 'ec2-34-195-179-212.compute-1.amazonaws.com',
   user     : 'nijjarm',
@@ -21,6 +23,8 @@ var connection = mysql.createConnection({
   password : 'ES-yUW2k-xn3^hFU',
   database : 'hgsops'
 });
+
+
 
 connection.connect(function(err) {
   if (err) {
@@ -44,7 +48,7 @@ app.get('/output.html', function (req, res) {
 
 app.post('/data', function(req, res){
   console.log(req.body.GRAD8aStart);
-  
+  console.log('!!!!!!!!!!!!!!AHHAHHAHAHAH')
   var swuery = 'SELECT CONTRACTS.`unique_transaction_id`, CONTRACTS.`dollarsobligated`, CONTRACTS.`currentcompletiondate`, CONTRACTS.`ultimatecompletiondate`, CONTRACTS.`vendorname`, CONTRACTS.`principalnaicscode`, CONTRACTS.`phoneno`, GRADDATE.`graddate` FROM `CONTRACTS`, `CONTRACTEND`, `GRADDATE` WHERE CONTRACTS.`unique_transaction_id` = CONTRACTEND.`unique_transaction_id` AND CONTRACTS.`VENDORNAME` = GRADDATE.`VENDORNAME` AND CONTRACTS.`firm8aflag`="TRUE"';
   if(req.body.PVMEMO != "" && validator.isAlphanumeric(req.body.PVMEMO)){
     swuery += " AND CONTRACTS.`vendorname` LIKE '%" + req.body.PVMEMO + "%'";
@@ -201,13 +205,33 @@ query
   .on('end', function() {
     // all rows have been received
     if(juxta){
-      res.send(datja);
-      console.log(swuery);
+      data = JSON.stringify(datja)
+      i = 0;
+      data = data.split('"');
+      array=[]
+      for(i = 0; i < ((data.length/30)-1); i++){
+        array.push(data[5 + (30 * i)]);
+        array.push(data[8 + (30 * i)]);
+        array.push(data[11 + (30 * i)]);
+        array.push(data[15 + (30 * i)]);
+        array.push(data[19 + (30 * i)]);
+        array.push(data[22 + (30 * i)]);
+        array.push(data[25 + (30 * i)]);
+        array.push(data[29 + (30 * i)]);
+      }
+
+      res.render('outputE', {
+        data: array
+    });
     }
     
   });
   console.log(swuery);
 })
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 app.listen(3000, function () {
   console.log('localhost:3000')
