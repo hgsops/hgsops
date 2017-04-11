@@ -162,12 +162,14 @@ app.get('/data', function(req, res){
   if(req.query.CEND != "" && validator.isISO8601(req.query.CEND)){
     swuery += " AND CONTRACTEND.`enddate` < '" + req.query.SACODE + "'";
   }
+  /*
   if(req.query.POPCITY != "" && validator.isAlpha(req.query.POPCITY)){
     swuery += " AND CONTRACTS.`CITY` LIKE '%" + req.query.CITY + "%'";
   }
   if(req.query.STATE != "" && validator.isAlpha(req.query.POPCITY)){
     swuery += " AND CONTRACTS.`CITY` LIKE '%" + req.query.CITY + "%'";
   }
+  */
   if(req.query.women != null){
     swuery += " AND CONTRACTS.`womenownedflag` = 'TRUE'";
   }
