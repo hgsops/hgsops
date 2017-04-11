@@ -45,6 +45,43 @@ function start() {
 };
 window.addEventListener ( "load", start, false);
 </script>
+<script>
+$(document).ready(function() {
+  //Only needed for the filename of export files.
+  //Normally set in the title tag of your page.
+  // DataTable initialisation
+  $('#table').DataTable(
+    {
+      
+      "columnDefs":[
+        {
+          "targets": [8,9],
+          "visible": false,
+          "searchable": false
+        }
+      ],
+      "columnDefs":[
+        {
+          "targets": [2],
+          data: 'price',
+          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
+        }
+      ],
+      "dom": 'Bfrtip',
+      "paging": true,
+      "autoWidth": true,
+      "buttons": [
+          {
+            extend: 'excel',
+            text: 'Save to excel',
+            exportOptions: {
+            }
+          }
+      ]
+    }
+  );
+});
+</script>
 </head>
 <body>
 
@@ -114,9 +151,7 @@ window.addEventListener ( "load", start, false);
                     <th>Ultimate Completion Date</th>
                     <th>Principle NAICS Code</th>
                     <th>Phone Number</th>
-                    <th>8a Graduation Date</th>
-                    <th>State</th>
-                    <th>City</th>                
+                    <th>8a Graduation Date</th>           
                   </tr>
                 </thead>
                 <tbody>
@@ -124,14 +159,12 @@ window.addEventListener ( "load", start, false);
                 <tr>
                     <td><%= data[4+(i*8)] %></td>
                     <td><%= data[0+(i*8)] %></td>
-                    <td><%= data[1+(i*8)] %></td>
+                    <td><%= '$'+data[1+(i*8)] %></td>
                     <td><%= data[2+(i*8)] %></td>
                     <td><%= data[3+(i*8)] %></td>
                     <td><%= data[5+(i*8)] %></td>
                     <td><%= data[6+(i*8)] %></td>
                     <td><%= data[7+(i*8)] %></td>
-                    <td>To Be Added</td>
-                    <td>To Be Added</td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -156,40 +189,3 @@ window.addEventListener ( "load", start, false);
     <!-- /.container -->
 </body>
 </html>
-<script>
-$(document).ready(function() {
-  //Only needed for the filename of export files.
-  //Normally set in the title tag of your page.
-  // DataTable initialisation
-  $('#table').DataTable(
-    {
-      
-      "columnDefs":[
-        {
-          "targets": [8,9],
-          "visible": false,
-          "searchable": false
-        }
-      ],
-      "columnDefs":[
-        {
-          "targets": [2],
-          data: 'price',
-          render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
-        }
-      ],
-      "dom": 'Bfrtip',
-      "paging": true,
-      "autoWidth": true,
-      "buttons": [
-          {
-            extend: 'excel',
-            text: 'Save to excel',
-            exportOptions: {
-            }
-          }
-      ]
-    }
-  );
-});
-</script>
